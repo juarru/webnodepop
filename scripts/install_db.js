@@ -14,7 +14,7 @@ function install(){
     let client = require('mongodb').MongoClient;
 
     // Connecting to Database
-    client.connect('mongodb://localhost:27017/nodepop', function(err, db){
+    client.connect('mongodb://localhost:27017/webnodepop', function(err, db){
 
         if (err) throw err;
         console.log('Connected to Database');
@@ -28,27 +28,7 @@ function install(){
             }
             console.log('Deleted commercials collection. Status: ' + status);
 
-            // Drop users collection
-            console.log('Deleting users collection');
-            db.collection('users').drop(function (err, status) {
-                if (err) {
-                    console.log('The users collection doesn´t exists. Continue installing');
-                }
-                console.log('Deleted users collection. Status: ' + status);
-
-                // Drop tokens collection
-                console.log('Deleting tokens collection');
-                db.collection('tokens').drop(function (err, status) {
-                    if (err) {
-                        console.log('The tokens collection doesn´t exists. Continue installing');
-                    }
-                    console.log('Deleted tokens collection. Status: ' + status);
-
-                    // Execute insertData after ensure collections has dropped
-                    console.log('------ Starting Insert ------');
-                    insertData(db);
-                });
-            });
+            insertData(db);
 
         });
 
@@ -73,28 +53,10 @@ function insertData(db){
         db.collection('commercials').insert(json, function (err) {
             if (err) throw err;
             console.log('Commercials added.');
-        });
-    });
-
-    // Reading users JSON
-    fs.readFile(__dirname + '/users.json', 'utf8', function (err, data) {
-        if(err) throw err;
-        console.log('Users loaded');
-
-        let json = JSON.parse(data);
-
-        // Inserting data into database
-        console.log ('Inserting Users');
-        db.collection('users').insert(json, function (err) {
-            if (err) throw err;
-            console.log ('Users added.');
 
             // Close connection
             db.close();
-
         });
-
-
     });
 }
 
