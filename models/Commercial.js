@@ -17,7 +17,8 @@ let commercialSchema = mongoose.Schema({
     price: {type: Number, index: true, required: true},
     photo: String,
     tags: [String]
-});
+},
+    { collection : 'commercials'});
 
 // Making a static method for filtering data
 commercialSchema.statics.list = function (filter, start, limit, sort, field, total, cb) {
@@ -36,7 +37,7 @@ commercialSchema.statics.list = function (filter, start, limit, sort, field, tot
 };
 
 
-
-
 // Assingning schema to model - Using var to use hoisting
-var Commercial = mongoose.model('Commercial', commercialSchema);
+var Commercial = mongoose.model('Commercial', commercialSchema, 'commercials');
+
+module.exports = Commercial;

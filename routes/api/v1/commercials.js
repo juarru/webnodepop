@@ -24,13 +24,13 @@ let errors = require('../../../lib/errorHandler');
 
 // Returning data
 
-router.get('/', function (req, res) {
+router.get('/', function (req, res, next) {
     let name = req.query.name;
     let venta = req.query.sell;
     let tags = req.query.tags;
     let precio = req.query.price;
     let start = parseInt(req.query.start) || 0;
-    let limit = parseInt(req.query.limit) || null;
+    let limit = parseInt(req.query.limit);
     let sort = req.query.sort || null;
     let field = req.query.field || null;
     let total = req.query.total || false;
@@ -56,7 +56,7 @@ router.get('/', function (req, res) {
 
     }
 
-    
+
     // Controlling tags search in case of more than one
     // searching option.
     if (tags && tags[1].length > 1){
@@ -98,6 +98,7 @@ router.get('/', function (req, res) {
             return res.json({success:false, error: err});
         }
         res.json({success: true, rows: rows});
+
     });
 
 });

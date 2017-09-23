@@ -29,6 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/images')));
 
 // Detecting languaje in header with x-lang
 app.use((req, res, next) => {
@@ -43,6 +44,7 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/index'));
 
 // Loading API routes
+app.use('/users', require('./routes/users'));
 app.use('/api/v1/commercials', require('./routes/api/v1/commercials'));
 
 // catch 404 and forward to error handler

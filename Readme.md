@@ -1,17 +1,8 @@
-## Nodepop by Juan Arillo
+## WebNodepop by Juan Arillo
 
   API service for IOs and Android of second hands article´s selling.  
   Final [node](http://nodejs.org) module practise, using also [express](https://github.com/expressjs/express) framework and [mongoDB](https://www.mongodb.com/) database.
   
-## Deployment server
-
-An instance of nodepop is deploy at the server:
-
-`public DNS: http://ec2-52-204-6-150.compute-1.amazonaws.com/`   
-`Elastic IP: 52.204.6.150`
-
-An image example at route:  
-`http://ec2-52-204-6-150.compute-1.amazonaws.com/images/anuncios/iphone.jpg`
 
 ## Previous Requirement
 
@@ -25,12 +16,12 @@ For using Nodepop you first need to install the next resources:
 
 ### Downloading
 
-You can download Nodepop´s project from [the GitHub repository](https://github.com/ExercisesBootcamp/nodepop).
+You can download WebNodepop´s project from [the GitHub repository](https://github.com/juarru/webnodepop.git).
 
 You can also clone the project from GitHub using [git](https://git-scm.com/) commands into the console. You first need to install [git](https://git-scm.com/) in this case:  
 
 ```bash
-$ git clone https://github.com/ExercisesBootcamp/nodepop.git
+$ git clone https://github.com/juarru/webnodepop.git
 ```
 
 ### Installing
@@ -69,27 +60,17 @@ $ bin/mongod --dbpath ./data/db --directoryperdb
 
 In this moment mongoDB is running, listening by default at `port=27017`
 
-## Running Nodepop
+## Running WebNodepop
 
 ### Option One - Install example data
 
-Perhaps you want to test the project using some previous data. Perfect!!!, you can do it. Before starting Nodepop, please execute the next instruction into the nodepop´s directory:
+Perhaps you want to test the project using some previous data. Perfect!!!, you can do it. Before starting WebNodepop, please execute the next instruction into the nodepop´s directory:
 
 ```bash
 $ npm run installDB
 ```
 
-You have now two users and some commercials in the database ready to use.
-The users information are:
-
-name | email | key
------|-------|-----
-Node | node@node.com | 1234 
-Mongo | mongo@mongo.com | 5678
-
-You can use them later for [authentication](#authentication) testing, the same as commercials, that you will get using the API.
-
-Now you can start Nodepop service:
+Now you can start WebNodepop service:
 
 ```bash
 $ npm start
@@ -103,10 +84,10 @@ You only want to start the service and introduce the data later using the API in
 $ npm start
 ```
 
-## Debugging Nodepop
-Perhaps you are thinking about use Nodepop and add some features or change existing one. Please, feel free to do it.
+## Debugging WebNodepop
+Perhaps you are thinking about use WebNodepop and add some features or change existing one. Please, feel free to do it.
   
-In that case is possible you want to use a debugging mode to analize more in depth how the service is working. For this situation you can run Nodepop this way:
+In that case is possible you want to use a debugging mode to analize more in depth how the service is working. For this situation you can run WebNodepop this way:
 
 ```bash
 $ npm run debug
@@ -114,75 +95,7 @@ $ npm run debug
 
 ## API - Languajes
 
-Nodepop supports english and spanish languaje. You must pass a `x-lang` parameter with `en` or `es` value to receive messages in the desired languaje. Option `en` is set as default.
-
-## API - Users
-
-### Registering users
-
-For register an user, you must pass all the fields in a `POST` request using the next route:
-
-`http://server_ip:3000/api/v1/users`
-
-The users model is:
-
-```js
-	{
-    name: {type: String, required: true},
-    email: {type: String, required: true},
-    key: {type: String, required: true}
-	}
-```
-
-You will receive a succes response if the data is validate
-
-```js
-{
-  "success": true,
-  "saved": {
-    "__v": 0,
-    "email": "mongoose@mongo.com",
-    "key": "38083c7ee9121e17401883566a148aa5c2e2d55dc53bc4a94a026517dbff3c6b",
-    "name": "mongoose",
-    "_id": "572cd04957723871329eddf7"
-	}
-}
-```
-
-In case of failed validation, you will receive a response like this:
-
-```js
-{
-  "success": false,
-  "error": "Some require field is not sended. Please review"
-}
-```
-
-### Users Authentication
-<a name=authentication> </a>
-For authenticate existing users, you must send a `POST` request using the route:
-
-`http://server_ip:3000/api/v1/users/authenticate`
-
-You only have to pass the `email` and `key` fields.
-
-If the operation is done, you will receive a success response with a token:
-
-```js
-{
-  "success": true,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU3MmNkMDQ5NTc3MjM4NzEzMjllZGRmNyIsImlhdCI6MTQ2MjU1NTk1MiwiZXhwIjoxNDYyNzI4NzUyfQ.EclGk2iIvTNUMUsgU1pyWmwk9q0rmAV81Lc--PrcpQ4"
-}
-```
-
-If some problem happens, you will receive a json response:
-
-```js
-{
-  "success": false,
-  "error": "Authentication failed. Invalid password"
-}
-```
+WebNodepop supports english and spanish languaje. You must pass a `x-lang` parameter with `en` or `es` value to receive messages in the desired languaje. Option `en` is set as default.
 
 ## API - Commercials
 
@@ -267,63 +180,7 @@ You can filter price ranges using a '-'
 
 You can filter using the 'name' field using a complete match or introducing the first letters of the string you want to find.
 
-`http://server_ip:3000/api/v1/commercials?na,e=ip` returning all the results beginning from 'ip' either lower or upper case.
-
-*5- Field listing:*
-
-Perhaps you want a list of all the results for one field, use
-
-`http://server_ip:3000/api/v1/commercials?field=tags` returns all the tags.
-
-`http://server_ip:3000/api/v1/commercials?field=name` returns all the names of the commercials.
-
-*6- Counting results:*
-
-If you want to know how many items are with the filter you made, you can use this:
-
-`http://server_ip:3000/api/v1/commercials?total=true` for receiving the total of items in database.
-
-`http://server_ip:3000/api/v1/commercials?name=ip&total=true` for receiving how many items match this filter.
-
-## API - Push Token
-
-For saving Commercials, use a `POST` or `PUT` request to the route:
-
-`http://server_ip:3000/api/v1/tokens`
-
-The token data model is:
-
-```js
-{ 
-    platform: {type: String, enum: ['ios', 'android'], required: true}, 
-    token: {type: String, required: true},
-    user: String
-}
-```
-
-If the request is correct you will receive a success response:
-
-```js
-{
-  "success": true,
-  "saved": {
-    "__v": 0,
-    "platform": "ios",
-    "token": "lajfñadjfñdkjfñkfjñadkjfakfjña",
-    "user": "mongo",
-    "_id": "572ce1a40e4eb309336c35bc"
-  }
-}
-```
-
-If is not, the response will be like this:
-
-```js
-{
-  "success": false,
-  "error": "Push incomplete. Please review your request"
-}
-```
+`http://server_ip:3000/api/v1/commercials?name=ip` returning all the results beginning from 'ip' either lower or upper case.
 
 ## Author
 
