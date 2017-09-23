@@ -1,5 +1,5 @@
 /**
- * Created by juan_arillo on 1/5/16.
+ * Created by juan_arillo on 20/9/17.
  *
  * Description: Script for set up Database. Delete collection if exist
  *              and create it again with some example data.
