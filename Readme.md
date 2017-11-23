@@ -1,3 +1,8 @@
+## Routes for Devops Practice -- Hello Alberto!
+
+URL -> ec2-13-58-151-50.us-east-2.compute.amazonaws.com
+IP -> 13.58.151.50
+
 ## WebNodepop by Juan Arillo
 
   API service for IOs and Android of second hands article´s selling.  
